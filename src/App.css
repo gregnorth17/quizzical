@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Karla"
+}
+
+body {
+  margin: 0;
+  background: #F5F7FB;
+}
+
+.intro-page {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  background: url('./assets/blob1.png') no-repeat right top, url('./assets/blob2.png') no-repeat left bottom;
+  height: 100vh;
+}
+
+.intro-title, .intro-text {
+  text-align: center;
+}
+
+.intro-title {
+  font-weight: 700;
+  color: #293264;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.intro-text {
+  font-weight: 400;
+  font-size: 1.125rem;
+  margin: .5em 0 1.25em;
+}
+
+.intro-btn {
+  margin: 0 auto;
+  border-radius: 15px;
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  color: #F5F7FB;
+  background: #4D5B9E;
+  width: 193px;
+  height: 52px;
+}
