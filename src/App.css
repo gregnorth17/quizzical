@@ -32,7 +32,7 @@ main {
   font-weight: 700;
   color: #293264;
   font-size: 2rem;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   margin: 0;
 }
 
@@ -63,4 +63,15 @@ main {
   font-weight: 700;
   font-size: 1.25rem;
   color: #293264;
+}
+
+.answer {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: .875rem;
+  border: 1px solid #4D5B9E;
+  padding: 1em 1.25em;
+  color: #293264;
+  border-radius: 10px;
+  background: #F5F7FB;
 }
