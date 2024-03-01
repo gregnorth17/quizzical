@@ -104,6 +104,24 @@ main {
   height: 20.65px;
 }
 
+.correct {
+  background: #94D7A2;
+  color: #293264;
+  border: 1px solid transparent;
+}
+
+.wrong {
+  background: #F8BCBC;
+  color: #acacac;
+  border: 1px solid transparent;
+}
+
+.neutral {
+  color: #acacac;
+  border: 1px solid #acacac;
+}
+
+
 input[type="radio"] {
   display: none;
 }
@@ -118,4 +136,36 @@ input[type="radio"]:checked + .answer {
   margin-bottom: 0;
   font-size: .85rem;
 }
+
+.play-again-btn {
+  display: inline;
+  margin: 0;
+  width: initial;
+  height: initial;
+  padding: .75em 2em;
+}
+
+.error-message {
+  margin: 0;
+  color: #ff3333;
+}
+
+.score-message {
+  display: inline;
+  font-family: 'Inter';
+  font-weight: 700;
+  font-size: 15px;
+  color: #293264;
+}
+
+.score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.score-message {
+  margin-right: 1em;
+}
+
 

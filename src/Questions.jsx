@@ -1,10 +1,19 @@
 import { decode } from 'html-entities'
 // import { nanoid } from 'nanoid'
 
-const Question = ({question, answers, questionIndex, register}) => {
+const Question = ({
+  question, 
+  answers, 
+  questionIndex, 
+  register, 
+  errors,
+  isSubmitSuccessful
+}) => {
 
-    const answerInputs = answers.map((answer, answerIndex) => {
-      const questionAnswerIndex = `question${questionIndex}answer${answerIndex}`
+  const inputIndex = `answer${questionIndex + 1}`
+
+  const answerInputs = answers.map((answer, answerIndex) => {
+    const questionAnswerIndex = `question${questionIndex}answer${answerIndex}`
       return (
           <>
             <input
@@ -16,7 +25,7 @@ const Question = ({question, answers, questionIndex, register}) => {
             <label className='answer' htmlFor={questionAnswerIndex}>{decode(answer)}</label>
           </>
         )
-    })
+      })
 
   return (
     <div className='question'>
@@ -24,6 +33,7 @@ const Question = ({question, answers, questionIndex, register}) => {
       <div className='answers'>
         {answerInputs}
       </div>
+      <p className='error-message'>{errors[inputIndex]?.message}</p>
     </div>
   )
 }
