@@ -7,13 +7,22 @@ const Question = ({
   questionIndex, 
   register, 
   errors,
-  isSubmitSuccessful
+  isSubmitSuccessful,
+  buttonColors,
+  correctAnswers,
+  userAnswers
 }) => {
 
   const inputIndex = `answer${questionIndex + 1}`
 
   const answerInputs = answers.map((answer, answerIndex) => {
     const questionAnswerIndex = `question${questionIndex}answer${answerIndex}`
+    // const addColor = userAnswers[answerIndex] === correctAnswers[answerIndex] && 'correct'
+    // console.log(userAnswers[answerIndex], correctAnswers[answerIndex])
+    // const addColor = userAnswers[answerIndex] === answer
+    // const addColor = isSubmitSuccessful && userAnswers[answerIndex] === answer ? 'correct' : ''
+    // console.log(addColor)
+    
       return (
           <>
             <input
@@ -21,8 +30,9 @@ const Question = ({
               value={answer} 
               type='radio'
               id={questionAnswerIndex}
+              // checked={false}
             />
-            <label className='answer' htmlFor={questionAnswerIndex}>{decode(answer)}</label>
+            <label className={`answer ${buttonColors[answerIndex]}`} htmlFor={questionAnswerIndex}>{decode(answer)}</label>
           </>
         )
       })

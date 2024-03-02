@@ -10,13 +10,16 @@ import Questions from './Questions'
 
 function App() {
   // colours after submitted
-  // play again button
+  // play again button and rerender()
   // how to reset form
 
   const [start, setStart] = useState(false)
   const [questions, setQuestions] = useState(undefined)
   const [correctAnswers, setCorrectAnswers] = useState(undefined)
+  const [userAnswers, setUserAnswers] = useState([])
   const [score, setScore] = useState(0)
+  const [buttonColors, setButtonColors] = useState([])
+  console.log(buttonColors)
 
   const { 
     register, 
@@ -26,7 +29,7 @@ function App() {
   } = useForm()
 
   const fetchData = async () => {
-    const data = await axios.get('https://opentdb.com/api.php?amount=5&type=multiple').then(response => response.data.results)
+    const data = await axios.get('https://opentdb.com/api.php?amount=1&type=multiple').then(response => response.data.results)
     setStart(true)
     setScore(0)
     setQuestions(data)
@@ -34,13 +37,21 @@ function App() {
   }
 
   const onSubmit = data => {
+    setUserAnswers(data)
     correctAnswers.map((answer, index) => {
       const userAnswer = decode(data[`answer${index + 1}`])
-        userAnswer === answer && setScore(prevScore => prevScore + 1)
+
+      if(userAnswer === answer) {
+        setScore(prevScore => prevScore + 1)
+        setButtonColors(prevColors => [...prevColors, 'correct'])
+      }
+      
     })
   }
 
-  console.log(score)
+  console.log(userAnswers)
+  
+  // console.log(score)
   console.log(questions)
 
   const scoreString = score === 1 ? 'answer' : 'answers'
@@ -64,6 +75,9 @@ function App() {
                   key={nanoid()}
                   errors={errors}
                   isSubmitSuccessful={isSubmitSuccessful}
+                  buttonColors={buttonColors}
+                  userAnswers={userAnswers}
+                  correctAnswers={correctAnswers}
                 />)}
               {
                 isSubmitSuccessful ?
@@ -72,7 +86,7 @@ function App() {
                     <button className='play-again-btn check-answers-btn btn'>Play Again</button>
                   </div>
                   :
-                  <button onClick={fetchData} className='btn check-answers-btn'>Check Answers</button>
+                  <button className='btn check-answers-btn'>Check Answers</button>
               }
             </form>
             <DevTool control={control} />

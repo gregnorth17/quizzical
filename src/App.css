@@ -104,11 +104,7 @@ main {
   height: 20.65px;
 }
 
-.correct {
-  background: #94D7A2;
-  color: #293264;
-  border: 1px solid transparent;
-}
+
 
 .wrong {
   background: #F8BCBC;
@@ -131,6 +127,18 @@ input[type="radio"]:checked + .answer {
   color: #293264;
   border: 1px solid transparent;
 }
+
+input[type="radio"]:checked+.answer.correct {
+  background: #94D7A2;
+  color: #293264;
+  border: 1px solid transparent;
+}
+
+/* .correct {
+  background: #94D7A2;
+  color: #293264;
+  border: 1px solid transparent;
+} */
 
 .check-answers-btn {
   margin-bottom: 0;
