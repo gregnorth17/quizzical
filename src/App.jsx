@@ -28,6 +28,10 @@ function App() {
     formState: {errors, isSubmitSuccessful}
   } = useForm()
 
+  const form = useForm()
+
+  console.log(form)
+
   const fetchData = async () => {
     const data = await axios.get('https://opentdb.com/api.php?amount=1&type=multiple').then(response => response.data.results)
     setStart(true)
@@ -43,14 +47,14 @@ function App() {
 
       if(userAnswer === answer) {
         setScore(prevScore => prevScore + 1)
-        setButtonColors(prevColors => [...prevColors, 'correct'])
+        // setButtonColors(prevColors => [...prevColors, 'correct'])
       }
       
     })
   }
 
   console.log(userAnswers)
-  
+
   // console.log(score)
   console.log(questions)
 
@@ -70,7 +74,7 @@ function App() {
                     })
                   }
                   question={question}
-                  answers={[...incorrect_answers, correct_answer]}
+                  answers={[...incorrect_answers, correct_answer].sort()}
                   questionIndex={questionIndex}
                   key={nanoid()}
                   errors={errors}

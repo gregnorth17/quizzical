@@ -104,35 +104,62 @@ main {
   height: 20.65px;
 }
 
-
-
-.wrong {
+.user-wrong {
   background: #F8BCBC;
   color: #acacac;
   border: 1px solid transparent;
 }
 
-.neutral {
+.wrong {
   color: #acacac;
   border: 1px solid #acacac;
 }
 
 
+
 input[type="radio"] {
   display: none;
+  /* appearance: none; */
 }
 
-input[type="radio"]:checked + .answer {
+/* input[type="radio"]:checked + .answer {
   background: #D6DBF5;
   color: #293264;
   border: 1px solid transparent;
-}
+} */
 
-input[type="radio"]:checked+.answer.correct {
+/* input[type="radio"]:checked+.answer.correct {
   background: #94D7A2;
   color: #293264;
   border: 1px solid transparent;
+} */
+
+/* .checked {
+  background: #D6DBF5;
+  color: #293264;
+  border: 1px solid transparent;
+} */
+
+input[type="radio"]:checked + label {
+  background: #D6DBF5;
+  border: 1px solid transparent;
 }
+
+/* input[type='radio']:not(:disabled):checked {
+  background-color: red;
+} */
+
+input[type="radio"]:checked+.answer.correct {
+  background: #94D7A2;
+  border: 1px solid transparent;
+}
+
+input[type="radio"]:checked+.answer.user-wrong {
+  background: #F8BCBC;
+  color: #acacac;
+  border: 1px solid transparent;
+}
+
 
 /* .correct {
   background: #94D7A2;
