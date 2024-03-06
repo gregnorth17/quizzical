@@ -96,76 +96,30 @@ main {
   margin-right: 1em;
 }
 
-.selected {
-  background: #D6DBF5;
-  border: none;
-  color: #293264;
-  width: 65.92px;
-  height: 20.65px;
+input[type="radio"] {
+  display: none;
 }
 
-.user-wrong {
+input[type="radio"]:checked + .answer {
+  background: #D6DBF5;
+  border: 1px solid transparent;
+}
+
+input[type="radio"]:checked + .correct, .correct {
+  background: #94D7A2;
+  border: 1px solid transparent;
+}
+
+input[type="radio"]:checked + .user-wrong {
   background: #F8BCBC;
   color: #acacac;
   border: 1px solid transparent;
 }
 
-.wrong {
+input[type='radio']:not(:checked) + .user-wrong {
   color: #acacac;
   border: 1px solid #acacac;
 }
-
-
-
-input[type="radio"] {
-  display: none;
-  /* appearance: none; */
-}
-
-/* input[type="radio"]:checked + .answer {
-  background: #D6DBF5;
-  color: #293264;
-  border: 1px solid transparent;
-} */
-
-/* input[type="radio"]:checked+.answer.correct {
-  background: #94D7A2;
-  color: #293264;
-  border: 1px solid transparent;
-} */
-
-/* .checked {
-  background: #D6DBF5;
-  color: #293264;
-  border: 1px solid transparent;
-} */
-
-input[type="radio"]:checked + label {
-  background: #D6DBF5;
-  border: 1px solid transparent;
-}
-
-/* input[type='radio']:not(:disabled):checked {
-  background-color: red;
-} */
-
-input[type="radio"]:checked+.answer.correct {
-  background: #94D7A2;
-  border: 1px solid transparent;
-}
-
-input[type="radio"]:checked+.answer.user-wrong {
-  background: #F8BCBC;
-  color: #acacac;
-  border: 1px solid transparent;
-}
-
-
-/* .correct {
-  background: #94D7A2;
-  color: #293264;
-  border: 1px solid transparent;
-} */
 
 .check-answers-btn {
   margin-bottom: 0;
