@@ -8,21 +8,21 @@ html {
 
 body {
   margin: 0;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  place-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 1.25em 2em;
   background: #F5F7FB;
   background: url('./assets/blob1.png') no-repeat right top, url('./assets/blob2.png') no-repeat left bottom;
 }
 
 .quiz-page {
   max-width: 800px;
-}
-
-main {
-  display: flex;
-  place-content: center;
-  align-items: center;
-  /* max-width: 800px; */
-  margin: 0 auto;
-  /* height: 100dvh; */
 }
 
 .intro-page {
@@ -64,11 +64,7 @@ main {
 }
 
 .btn:active {
-  box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
-}
-
-.quiz-page {
-  padding: 1.25em 0;
+  /* box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7); */
 }
 
 .question {
@@ -81,13 +77,13 @@ main {
   font-size: 1rem;
   color: #293264;
   margin: 0 0 2em 0;
+  line-height: 1.4;
 }
 
 .answers {
-  padding-bottom: 2.5em;
+  padding-bottom: 1em;
   display: flex;
-  /* flex-wrap: wrap; */
-
+  flex-wrap: wrap;
 }
 
 .answer {
@@ -99,7 +95,8 @@ main {
   color: #293264;
   border-radius: 10px;
   cursor: pointer;
-  margin-right: 1em;
+  margin: 0 1em .5em 0;
+
 }
 
 input[type="radio"] {

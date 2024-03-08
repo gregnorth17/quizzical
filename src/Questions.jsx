@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { decode } from 'html-entities'
 
 const Question = ({
@@ -13,7 +14,6 @@ const Question = ({
   const inputIndex = `answer${questionIndex + 1}`
   
   const answerInputs = answers.map((answer, answerIndex) => {
-    console.log(answer.length)
     const questionAnswerIndex = `question${questionIndex}answer${answerIndex}`
     
     const submitClass = () => {
@@ -35,13 +35,19 @@ const Question = ({
           <>
             <input
               {...register}
-              value={answer}
+              value={decode(answer)}
               type='radio'
               id={questionAnswerIndex}
+              disabled={isSubmitSuccessful}
             />
-            <label className={`answer ${submitClass()}`} htmlFor={questionAnswerIndex}>
+            <motion.label
+              className={`answer ${submitClass()}`} 
+              htmlFor={questionAnswerIndex}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 4, type: 'spring', stiffness: 80 }}
+            >
               {decode(answer)}
-            </label>
+            </motion.label>
           </>
         )
       })
