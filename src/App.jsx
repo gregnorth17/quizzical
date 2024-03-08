@@ -1,5 +1,6 @@
 import { DevTool } from '@hookform/devtools'
 import axios from 'axios'
+import { motion } from "framer-motion"
 import { decode } from 'html-entities'
 import { nanoid } from 'nanoid'
 import { useState } from 'react'
@@ -52,7 +53,12 @@ function App() {
       {
         start ?
           <div className='quiz-page'>
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <motion.form
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1}}
+              transition={{ duration: 1 }}
+              onSubmit={handleSubmit(onSubmit)} noValidate
+            >
               {questions.map(({question, incorrect_answers, correct_answer}, questionIndex) => 
                 <Questions
                   register={
@@ -78,15 +84,35 @@ function App() {
                   :
                   <button className='btn check-answers-btn'>Check Answers</button>
               }
-            </form>
+            </motion.form>
             <DevTool control={control} />
           </div>
         :
-          <div className='intro-page'>
-            <h1 className='intro-title'>Quizzical</h1>
-            <p className='intro-text'>See if you can answer 5 random questions correctly!</p>
-            <button onClick={fetchData} className='btn'>Start Quiz</button>
-          </div>
+          <motion.div
+            
+            className='intro-page'>
+            <motion.h1 className='intro-title'
+              transition={{ type: 'spring', stiffness: 80}}
+              initial={{ y: -500 }}
+              animate={{ y: 0 }}
+            >Quizzical
+            </motion.h1>
+            <motion.p
+                className='intro-text'
+                transition={{ delay: 1, duration: 2 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+            >See if you can answer 5 random questions correctly!</motion.p>
+            <motion.button 
+              initial={{ y: 500 }}
+              animate={{ y: 0 }}
+              transition={{ type: 'spring', stiffness: 80}}
+              onClick={fetchData} 
+              className='btn'
+            >
+              Start Quiz
+            </motion.button>
+          </motion.div>
         }
     </main>
   )

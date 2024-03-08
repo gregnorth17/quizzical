@@ -12,13 +12,17 @@ body {
   background: url('./assets/blob1.png') no-repeat right top, url('./assets/blob2.png') no-repeat left bottom;
 }
 
+.quiz-page {
+  max-width: 800px;
+}
+
 main {
   display: flex;
   place-content: center;
   align-items: center;
   /* max-width: 800px; */
   margin: 0 auto;
-  height: 100dvh;
+  /* height: 100dvh; */
 }
 
 .intro-page {
@@ -41,7 +45,7 @@ main {
 
 .intro-text {
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 0 0 1.25em;
 }
 
@@ -49,7 +53,7 @@ main {
   margin: 2em auto;
   border-radius: 15px;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 1rem;
   border: none;
   color: #F5F7FB;
   background: #4D5B9E;
@@ -65,7 +69,6 @@ main {
 
 .quiz-page {
   padding: 1.25em 0;
-  /* max-width: 550px; */
 }
 
 .question {
@@ -82,6 +85,9 @@ main {
 
 .answers {
   padding-bottom: 2.5em;
+  display: flex;
+  /* flex-wrap: wrap; */
+
 }
 
 .answer {
@@ -156,5 +162,3 @@ input[type='radio']:not(:checked) + .user-wrong {
 .score-message {
   margin-right: 1em;
 }
-
-

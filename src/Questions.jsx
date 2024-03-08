@@ -8,13 +8,12 @@ const Question = ({
   errors,
   isSubmitSuccessful,
   correctAnswers,
-  userAnswers
 }) => {
 
   const inputIndex = `answer${questionIndex + 1}`
   
   const answerInputs = answers.map((answer, answerIndex) => {
-
+    console.log(answer.length)
     const questionAnswerIndex = `question${questionIndex}answer${answerIndex}`
     
     const submitClass = () => {
@@ -39,7 +38,6 @@ const Question = ({
               value={answer}
               type='radio'
               id={questionAnswerIndex}
-              // checked={isSubmitSuccessful}
             />
             <label className={`answer ${submitClass()}`} htmlFor={questionAnswerIndex}>
               {decode(answer)}
