@@ -17,18 +17,18 @@ const Question = ({
     const questionAnswerIndex = `question${questionIndex}answer${answerIndex}`
     
     const submitClass = () => {
-      if(
-        isSubmitSuccessful &&
-        answer === correctAnswers[questionIndex]
-      ) {
-        return 'correct'
-      }
-      if (
-        isSubmitSuccessful &&
-        answer !== correctAnswers[questionIndex] 
-      ) {
-        return 'user-wrong'
-      }
+        if(
+          isSubmitSuccessful &&
+          answer === correctAnswers[questionIndex]
+          ) {
+            return 'correct'
+          }
+        if(
+          isSubmitSuccessful &&
+          answer !== correctAnswers[questionIndex] 
+          ) {
+            return 'user-wrong'
+          }
     }
 
       return (
@@ -43,8 +43,8 @@ const Question = ({
             <motion.label
               className={`answer ${submitClass()}`} 
               htmlFor={questionAnswerIndex}
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 4, type: 'spring', stiffness: 80 }}
+              whileHover={{ scale: isSubmitSuccessful ? null : 1.1 }}
+              transition={{ duration: 2, type: 'spring'}}
             >
               {decode(answer)}
             </motion.label>

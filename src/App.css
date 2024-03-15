@@ -8,10 +8,11 @@ html {
 
 body {
   margin: 0;
+  /* height: 900px; */
 }
 
 main {
-  height: 100vh;
+  height: auto;
   display: flex;
   place-content: center;
   align-items: center;
@@ -50,7 +51,7 @@ main {
 }
 
 .btn {
-  margin: 2em auto;
+  margin: 1em auto;
   border-radius: 15px;
   font-weight: 500;
   font-size: 1rem;
@@ -69,7 +70,7 @@ main {
 
 .question {
   border-bottom: 0.79px solid #DBDEF0;
-  margin: 1em 0;
+  padding: 1em 0;
 }
 
 .question-title {
@@ -130,14 +131,16 @@ input[type='radio']:not(:checked) + .user-wrong {
 }
 
 .play-again-btn {
-  display: inline;
   margin: 0;
+  display: inline;
   width: initial;
   height: initial;
   padding: .75em 2em;
 }
 
 .error-message {
+  position: absolute;
+
   margin: 0;
   color: #ff3333;
 }
