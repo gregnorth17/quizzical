@@ -12,20 +12,14 @@ import Questions from './Questions'
 
 const Quizzical = () => {
   const [start, setStart] = useState(false)
-  // const [isLoading, setIsLoading] = useState(false)
-  // const [apiFail, setApiFail] = useState(false)
   const [questions, setQuestions] = useState(undefined)
   const [correctAnswers, setCorrectAnswers] = useState(undefined)
   const [userAnswers, setUserAnswers] = useState([])
   const [score, setScore] = useState(0)
 
-  //* fix choppy button color change after submit*//
-  //
-  // add error or fail to load
   // findout how to neaten up framer
-  // Change height on opening div
+  // Check moving css after answers
   
-
   const { 
     register, 
     handleSubmit, 
@@ -44,33 +38,16 @@ const Quizzical = () => {
     queryFn: () => fetchData(),
     queryOptions: { enabled: false }
   })
-  // console.log(data)
+
+  console.log()
   
   const useStartGame = () => {
     refetch()
     reset()
-    // setIsLoading(true)
     setStart(true)
     setScore(0)   
     setQuestions(data)
     setCorrectAnswers(data?.map(answer => decode(answer.correct_answer)))
-
-
-    // return await axios.get('https://opentdb.com/api.php?amount=5&type=multipl')
-    // .then(response => {
-    //   setStart(true)
-    //   setScore(0)   
-    //   setQuestions(response.data.results)
-    //   setCorrectAnswers(response.data.results.map(answer => decode(answer.correct_answer)))
-    // })
-    // .catch((error) => {
-    //   console.log(error)
-    //   if(error.response) {
-    //     setApiFail(true)
-    //     console.error(error)
-    //   }
-    // })
-    // .finally(() => setIsLoading(false))
   }
 
   const onSubmit = data => {
@@ -85,15 +62,12 @@ const Quizzical = () => {
 
   const scoreString = score === 1 ? 'answer' : 'answers'
 
-  // console.log(isError)
-  // if(isError) { return 'Hmmm, something went wrong'}
   if(isPending && start) { return 'Loading...'}
+
+  if(isError && start) { return 'Hmmm, something went wrong!'}
 
   return (
     <main>
-      {/* {start && isPending && 'Loading...'} */}
-      {/* {data === [] && 'Something went wrong' } */}
-      {/* {apiFail && 'Hmmm, something went wrong. Please try again!'} */}
       {
         start ?
           <motion.div className='quiz-page'
@@ -107,7 +81,8 @@ const Quizzical = () => {
               transition={{ duration: 1 }}
               onSubmit={handleSubmit(onSubmit)} noValidate
             >
-              {questions.map(({question, incorrect_answers, correct_answer}, questionIndex) => 
+              {questions?.map(({question, incorrect_answers, correct_answer}, questionIndex) => 
+                
                 <Questions
                   register={
                     register(`answer${questionIndex + 1}`, {
@@ -143,7 +118,6 @@ const Quizzical = () => {
                     }}
                     transition={{ type: 'spring', stiffness: 50}}
                     >Play Again</motion.button>
-                    {/* {isPending && 'Loading...'} */}
                   </motion.div>
                   :
                   <motion.button 
@@ -189,7 +163,6 @@ const Quizzical = () => {
             >
               Start Quiz
             </motion.button>
-            {/* {apiFail && 'Mmmm, something went wrong. Try again!'} */}
           </motion.div>
         }
     </main>

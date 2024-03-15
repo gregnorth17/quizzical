@@ -12,30 +12,32 @@ const Question = ({
 }) => {
 
   const inputIndex = `answer${questionIndex + 1}`
+
+  const decodedAnswers = answers.map(answer => decode(answer))
   
-  const answerInputs = answers.map((answer, answerIndex) => {
+  const answerInputs = decodedAnswers.map((answer, answerIndex) => {
     const questionAnswerIndex = `question${questionIndex}answer${answerIndex}`
     
     const submitClass = () => {
-        if(
-          isSubmitSuccessful &&
-          answer === correctAnswers[questionIndex]
-          ) {
-            return 'correct'
-          }
-        if(
-          isSubmitSuccessful &&
-          answer !== correctAnswers[questionIndex] 
-          ) {
-            return 'user-wrong'
-          }
+      if(
+        isSubmitSuccessful &&
+        answer === correctAnswers[questionIndex]
+        ) {
+          return 'correct'
+        }
+      if(
+        isSubmitSuccessful &&
+        answer !== correctAnswers[questionIndex] 
+        ) {
+          return 'user-wrong'
+        }
     }
 
       return (
           <>
             <input
               {...register}
-              value={decode(answer)}
+              value={answer}
               type='radio'
               id={questionAnswerIndex}
               disabled={isSubmitSuccessful}
@@ -46,7 +48,7 @@ const Question = ({
               whileHover={{ scale: isSubmitSuccessful ? null : 1.1 }}
               transition={{ duration: 2, type: 'spring'}}
             >
-              {decode(answer)}
+              {answer}
             </motion.label>
           </>
         )
