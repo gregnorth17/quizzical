@@ -8,11 +8,13 @@ html {
 
 body {
   margin: 0;
-  /* height: 900px; */
+  /* height: 100vh; */
 }
 
+/* Smaller screen size */
+
 main {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   place-content: center;
   align-items: center;
@@ -23,13 +25,17 @@ main {
 }
 
 .quiz-page {
+  /* display: flex;
+  place-content: center;
+  align-items: center; */
   max-width: 800px;
 }
 
 .intro-page {
   display: flex;
   flex-direction: column;
-  place-content: center;
+  align-items: center;
+  /* place-content: center; */
 }
 
 .intro-title, .intro-text {
@@ -79,6 +85,7 @@ main {
   color: #293264;
   margin: 0 0 1em 0;
   line-height: 1.4;
+  text-align: center;
 }
 
 .answers {
@@ -96,7 +103,8 @@ main {
   border-radius: 10px;
   cursor: pointer;
   margin: 0 1em .5em 0;
-
+  width: 100%;
+  text-align: center;
 }
 
 input[type="radio"] {

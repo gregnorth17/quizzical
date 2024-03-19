@@ -38,8 +38,6 @@ const Quizzical = () => {
     queryFn: () => fetchData(),
     queryOptions: { enabled: false }
   })
-
-  console.log()
   
   const useStartGame = () => {
     refetch()
@@ -69,12 +67,8 @@ const Quizzical = () => {
   return (
     <main>
       {
-        start ?
-          <motion.div className='quiz-page'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1}}
-            transition={{ duration: 1 }}
-          >
+        start ? 
+          <div className='quiz-page'>
             <motion.form
               initial={{ opacity: 0 }}
               animate={{ opacity: 1}}
@@ -134,7 +128,7 @@ const Quizzical = () => {
               }
             </motion.form>
             <DevTool control={control} />
-          </motion.div>
+          </div>
         :
           <motion.div
             className='intro-page'>

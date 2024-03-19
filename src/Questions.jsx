@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { decode } from 'html-entities'
+import { nanoid } from 'nanoid'
 
 const Question = ({
   question, 
@@ -41,6 +42,7 @@ const Question = ({
               type='radio'
               id={questionAnswerIndex}
               disabled={isSubmitSuccessful}
+              key={nanoid()}
             />
             <motion.label
               className={`answer ${submitClass()}`} 
