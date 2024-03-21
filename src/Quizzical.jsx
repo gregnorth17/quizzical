@@ -1,4 +1,5 @@
 import { DevTool } from '@hookform/devtools'
+import CircularProgress from '@mui/material/CircularProgress'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { motion } from 'framer-motion'
@@ -12,13 +13,12 @@ import Questions from './Questions'
 
 const Quizzical = () => {
   const [start, setStart] = useState(false)
-  const [questions, setQuestions] = useState(undefined)
   const [correctAnswers, setCorrectAnswers] = useState(undefined)
-  const [userAnswers, setUserAnswers] = useState([])
   const [score, setScore] = useState(0)
 
   // findout how to neaten up framer
   // Check moving css after answers
+  // Add loading state inside main div
   
   const { 
     register, 
@@ -30,26 +30,36 @@ const Quizzical = () => {
 
   const fetchData = async () => {
     return await axios.get('https://opentdb.com/api.php?amount=5&type=multiple')
-                        .then(response => response.data.results)
+                        .then(response => {
+                          setCorrectAnswers(response.data.results?.map(answer => decode(answer.correct_answer)))
+                          return response.data.results
+                        })
   }
 
-  const { data, refetch, isPending, isError } = useQuery({
+  const { data, refetch, isPending, isRefetching } = useQuery({
     queryKey: ['question'],
-    queryFn: () => fetchData(),
-    queryOptions: { enabled: false }
+    queryFn: fetchData,
+    enabled: false
   })
   
-  const useStartGame = () => {
-    refetch()
+  const startGame = () => {
     reset()
+    refetch()
     setStart(true)
-    setScore(0)   
-    setQuestions(data)
-    setCorrectAnswers(data?.map(answer => decode(answer.correct_answer)))
+    setScore(0)  
   }
 
+  // const resetGame = () => {
+  //   refetch()
+     
+  //   setCorrectAnswers(data?.map(answer => decode(answer.correct_answer)))
+  // }
+
+  // console.log(correctAnswers, score)
+
   const onSubmit = data => {
-    setUserAnswers(data)
+    console.log(data)
+    console.log(correctAnswers)
     correctAnswers?.map((answer, index) => {
       const userAnswer = decode(data[`answer${index + 1}`])
       if(userAnswer === answer) {
@@ -60,9 +70,9 @@ const Quizzical = () => {
 
   const scoreString = score === 1 ? 'answer' : 'answers'
 
-  if(isPending && start) { return 'Loading...'}
+  if(isPending && start) {return <main><CircularProgress /></main>}
 
-  if(isError && start) { return 'Hmmm, something went wrong!'}
+  if(isRefetching) {return <main><CircularProgress /></main>}
 
   return (
     <main>
@@ -70,12 +80,12 @@ const Quizzical = () => {
         start ? 
           <div className='quiz-page'>
             <motion.form
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1}}
-              transition={{ duration: 1 }}
+              // initial={{ opacity: 0 }}
+              // animate={{ opacity: 1}}
+              // transition={{ duration: 1 }}
               onSubmit={handleSubmit(onSubmit)} noValidate
             >
-              {questions?.map(({question, incorrect_answers, correct_answer}, questionIndex) => 
+              {data?.map(({question, incorrect_answers, correct_answer}, questionIndex) => 
                 
                 <Questions
                   register={
@@ -89,8 +99,11 @@ const Quizzical = () => {
                   key={nanoid()}
                   errors={errors}
                   isSubmitSuccessful={isSubmitSuccessful}
-                  correctAnswers={correctAnswers}
-                />)}
+                  correctAnswers={data?.map(answer => decode(answer.correct_answer))}
+                  isPending={isPending}
+                  isRefetching={isRefetching}
+                />
+                )}
               {
                 isSubmitSuccessful ?
                   <motion.div className='score'
@@ -103,7 +116,7 @@ const Quizzical = () => {
                    
                     >{isSubmitSuccessful && `You scored ${score}/5 correct ${scoreString}`}</motion.p>
                     <motion.button 
-                      onClick={useStartGame}
+                      onClick={startGame}
                       className='play-again-btn check-answers-btn btn'
                       whileHover={{
                       scale: 1.1,
@@ -146,7 +159,7 @@ const Quizzical = () => {
             >See if you can answer 5 random questions correctly!</motion.p>
             <motion.button 
               className='btn'
-              onClick={useStartGame}
+              onClick={startGame}
               whileHover={{
                 scale: 1.04,
                 boxShadow: '0px 0px 8px #9e8f4d'

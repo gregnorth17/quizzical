@@ -9,7 +9,7 @@ const Question = ({
   register, 
   errors,
   isSubmitSuccessful,
-  correctAnswers,
+  correctAnswers
 }) => {
 
   const inputIndex = `answer${questionIndex + 1}`
@@ -48,7 +48,7 @@ const Question = ({
               className={`answer ${submitClass()}`} 
               htmlFor={questionAnswerIndex}
               whileHover={{ scale: isSubmitSuccessful ? null : 1.1 }}
-              transition={{ duration: 2, type: 'spring'}}
+              transition={{ duration: 2, type: 'spring' }}
             >
               {answer}
             </motion.label>
@@ -57,13 +57,18 @@ const Question = ({
       })
 
   return (
-    <div className='question'>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1}}
+      transition={{ duration: 2 }}
+      className='question'
+    >
       <h3 className='question-title'>{decode(question)}</h3>
       <div className='answers'>
         {answerInputs}
       </div>
       <p className='error-message'>{errors[inputIndex]?.message}</p>
-    </div>
+    </motion.div>
   )
 }
 
