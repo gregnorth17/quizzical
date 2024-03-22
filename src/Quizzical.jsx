@@ -10,15 +10,10 @@ import { useForm } from 'react-hook-form'
 import './App.css'
 import Questions from './Questions'
 
-
 const Quizzical = () => {
   const [start, setStart] = useState(false)
   const [correctAnswers, setCorrectAnswers] = useState(undefined)
   const [score, setScore] = useState(0)
-
-  // findout how to neaten up framer
-  // Check moving css after answers
-  // Add loading state inside main div
   
   const { 
     register, 
@@ -49,17 +44,7 @@ const Quizzical = () => {
     setScore(0)  
   }
 
-  // const resetGame = () => {
-  //   refetch()
-     
-  //   setCorrectAnswers(data?.map(answer => decode(answer.correct_answer)))
-  // }
-
-  // console.log(correctAnswers, score)
-
   const onSubmit = data => {
-    console.log(data)
-    console.log(correctAnswers)
     correctAnswers?.map((answer, index) => {
       const userAnswer = decode(data[`answer${index + 1}`])
       if(userAnswer === answer) {
@@ -70,79 +55,32 @@ const Quizzical = () => {
 
   const scoreString = score === 1 ? 'answer' : 'answers'
 
-  if(isPending && start) {return <main><CircularProgress /></main>}
+  if(isPending && start) {return <div className='quizzical'><CircularProgress /></div>}
 
-  if(isRefetching) {return <main><CircularProgress /></main>}
+  if(isRefetching) {return <div className='quizzical'><CircularProgress /></div>}
+
+  const questionsHTML = data?.map(({question, incorrect_answers, correct_answer}, questionIndex) =>        
+    <Questions
+      key={nanoid()}
+      register={
+        register(`answer${questionIndex + 1}`, {
+          required: 'Please select an answer'
+        })
+      }
+      question={question}
+      answers={[...incorrect_answers, correct_answer].sort()}
+      questionIndex={questionIndex}
+      errors={errors}
+      isSubmitSuccessful={isSubmitSuccessful}
+      correctAnswers={correctAnswers}
+    />
+  )
 
   return (
     <main>
+      <div className='quizzical'>      
       {
-        start ? 
-          <div className='quiz-page'>
-            <motion.form
-              // initial={{ opacity: 0 }}
-              // animate={{ opacity: 1}}
-              // transition={{ duration: 1 }}
-              onSubmit={handleSubmit(onSubmit)} noValidate
-            >
-              {data?.map(({question, incorrect_answers, correct_answer}, questionIndex) => 
-                
-                <Questions
-                  register={
-                    register(`answer${questionIndex + 1}`, {
-                      required: 'Please select an answer'
-                    })
-                  }
-                  question={question}
-                  answers={[...incorrect_answers, correct_answer].sort()}
-                  questionIndex={questionIndex}
-                  key={nanoid()}
-                  errors={errors}
-                  isSubmitSuccessful={isSubmitSuccessful}
-                  correctAnswers={data?.map(answer => decode(answer.correct_answer))}
-                  isPending={isPending}
-                  isRefetching={isRefetching}
-                />
-                )}
-              {
-                isSubmitSuccessful ?
-                  <motion.div className='score'
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: .1}}
-                   >
-                    <motion.p 
-                    className='score-message'
-                   
-                    >{isSubmitSuccessful && `You scored ${score}/5 correct ${scoreString}`}</motion.p>
-                    <motion.button 
-                      onClick={startGame}
-                      className='play-again-btn check-answers-btn btn'
-                      whileHover={{
-                      scale: 1.1,
-                      textShadow: '0px 0px 8px rbg(255, 255, 255)',
-                      boxShadow: '0px 0px 8px rbg(255, 255, 255)'
-                    }}
-                    transition={{ type: 'spring', stiffness: 50}}
-                    >Play Again</motion.button>
-                  </motion.div>
-                  :
-                  <motion.button 
-                    className='btn check-answers-btn'
-                    whileHover={{
-                    scale: 1.1,
-                    textShadow: '0px 0px 8px rbg(255, 255, 255)',
-                    boxShadow: '0px 0px 8px rbg(255, 255, 255)'
-                  }}
-                    transition={{ type: 'spring', stiffness: 50}}
-                  >
-                    Check Answers
-                  </motion.button>
-              }
-            </motion.form>
-            <DevTool control={control} />
-          </div>
-        :
+        !start && 
           <motion.div
             className='intro-page'>
             <motion.h1 className='intro-title'
@@ -171,7 +109,59 @@ const Quizzical = () => {
               Start Quiz
             </motion.button>
           </motion.div>
-        }
+      }
+      {
+        start &&
+          <div className='quiz-page'>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <motion.div 
+                className='questions'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1}}
+                transition={{ duration: 2 }}
+              >
+                {questionsHTML}
+              </motion.div>
+              {
+                isSubmitSuccessful ?
+                  <motion.div className='score'
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 2 }}
+                   >
+                    <motion.p 
+                    className='score-message'
+                   
+                    >{isSubmitSuccessful && `You scored ${score}/5 correct ${scoreString}`}</motion.p>
+                    <motion.button 
+                      onClick={startGame}
+                      className='play-again-btn check-answers-btn btn'
+                      whileHover={{
+                      scale: 1.1,
+                      textShadow: '0px 0px 8px rbg(255, 255, 255)',
+                      boxShadow: '0px 0px 8px rbg(255, 255, 255)'
+                    }}
+                    transition={{ type: 'spring', stiffness: 50}}
+                    >Play Again</motion.button>
+                  </motion.div>
+                  :
+                  <motion.button 
+                    className='btn check-answers-btn'
+                    whileHover={{
+                    scale: 1.1,
+                    textShadow: '0px 0px 8px rbg(255, 255, 255)',
+                    boxShadow: '0px 0px 8px rbg(255, 255, 255)'
+                  }}
+                    transition={{ type: 'spring', stiffness: 50}}
+                  >
+                    Check Answers
+                  </motion.button>
+              } 
+            </form>
+            <DevTool control={control} />
+          </div>
+      }
+      </div>
     </main>
   )
 }

@@ -57,18 +57,18 @@ const Question = ({
       })
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1}}
-      transition={{ duration: 2 }}
-      className='question'
-    >
+    <div className='question'>
       <h3 className='question-title'>{decode(question)}</h3>
-      <div className='answers'>
+      <motion.div 
+        className='answers'
+        initial={{ opacity: isSubmitSuccessful ? 0 : null}}
+        animate={{ opacity: isSubmitSuccessful ? 1 : null}}
+        transition={{ duration: 2 }}
+      >
         {answerInputs}
-      </div>
+      </motion.div>
       <p className='error-message'>{errors[inputIndex]?.message}</p>
-    </motion.div>
+    </div>
   )
 }
 

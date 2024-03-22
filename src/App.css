@@ -14,7 +14,7 @@ body {
 
 /* MOBILE */
 
-main {
+.quizzical {
   min-height: 100vh;
   display: flex;
   place-content: center;
@@ -134,7 +134,7 @@ input[type='radio']:not(:checked) + .user-wrong {
 }
 
 .play-again-btn {
-  margin: 1.25em 0;
+  margin: 1em 0;
   display: inline;
   width: initial;
   height: initial;
