@@ -14,8 +14,6 @@ const Quizzical = () => {
   const [start, setStart] = useState(false)
   const [correctAnswers, setCorrectAnswers] = useState(undefined)
   const [score, setScore] = useState(0)
-
-  // handle errors
   
   const { 
     register, 
