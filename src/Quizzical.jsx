@@ -14,6 +14,8 @@ const Quizzical = () => {
   const [start, setStart] = useState(false)
   const [correctAnswers, setCorrectAnswers] = useState(undefined)
   const [score, setScore] = useState(0)
+
+  // handle errors
   
   const { 
     register, 
@@ -129,10 +131,9 @@ const Quizzical = () => {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 2 }}
                    >
-                    <motion.p 
-                    className='score-message'
-                   
-                    >{isSubmitSuccessful && `You scored ${score}/5 correct ${scoreString}`}</motion.p>
+                    <motion.p className='score-message'>
+                      {isSubmitSuccessful && `You scored ${score}/5 correct ${scoreString}`}
+                    </motion.p>
                     <motion.button 
                       onClick={startGame}
                       className='play-again-btn check-answers-btn btn'
